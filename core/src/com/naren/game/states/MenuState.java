@@ -1,5 +1,6 @@
 package com.naren.game.states;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.naren.game.FlappyBot;
@@ -17,12 +18,15 @@ public class MenuState extends State {
 
     @Override
     public void handleInput() {
-
+        if (Gdx.input.justTouched()){
+            gsm.set(new PlayState(gsm));
+            dispose();
+        }
     }
 
     @Override
     public void update(float dt) {
-
+        handleInput();
     }
 
     @Override
@@ -33,5 +37,11 @@ public class MenuState extends State {
         sb.draw(playBtn, (FlappyBot.WIDTH/2) - (playBtn.getWidth()/2) , FlappyBot.HEIGHT/2);
         sb.end();
 
+    }
+
+    @Override
+    public void dispose() {
+        background.dispose();
+        playBtn.dispose();
     }
 }
