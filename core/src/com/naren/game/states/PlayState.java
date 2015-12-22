@@ -3,14 +3,15 @@ package com.naren.game.states;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.naren.game.FlappyBot;
+import com.naren.game.sprites.Bot;
 
 public class PlayState extends State {
 
-    private Texture bot;
+    private Bot bot;
 
     protected PlayState(GameStateManager gsm) {
         super(gsm);
-        bot = new Texture("bird.png");
+        bot = new Bot(50,300);
         cam.setToOrtho(false, FlappyBot.WIDTH/2, FlappyBot.HEIGHT/2);
     }
 
@@ -21,6 +22,8 @@ public class PlayState extends State {
 
     @Override
     public void update(float dt) {
+        handleInput();
+        bot.update(dt);
 
     }
 
@@ -28,7 +31,7 @@ public class PlayState extends State {
     public void render(SpriteBatch sb) {
         sb.setProjectionMatrix(cam.combined);
         sb.begin();
-        sb.draw(bot, 50, 50);
+        sb.draw(bot.getBot(), bot.getPosition().x, bot.getPosition().y);
         sb.end();
     }
 
