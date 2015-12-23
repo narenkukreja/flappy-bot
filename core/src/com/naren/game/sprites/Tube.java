@@ -19,8 +19,8 @@ public class Tube {
 
 
     public Tube(float x) {
-        topTube = new Texture("topTube.png");
-        bottomTube = new Texture("bottomTube.png");
+        topTube = new Texture("toptube.png");
+        bottomTube = new Texture("bottomtube.png");
         rand = new Random();
         posTopTube = new Vector2(x, rand.nextInt(FLUCTUATION) + TUBE_GAP + LOWEST_OPENING);
         posBottomTube = new Vector2(x, posTopTube.y - TUBE_GAP - bottomTube.getHeight());
@@ -61,6 +61,12 @@ public class Tube {
 
         return player.overlaps(boundsTop) || player.overlaps(boundsBot);
 
+    }
+
+    public void dispose(){
+
+        topTube.dispose();
+        bottomTube.dispose();
     }
 
 }

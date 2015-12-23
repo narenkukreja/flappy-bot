@@ -11,8 +11,9 @@ public class MenuState extends State {
 
     public MenuState(GameStateManager gsm) {
         super(gsm);
+        cam.setToOrtho(false, FlappyBot.WIDTH / 2, FlappyBot.HEIGHT / 2);
         background = new Texture("bg.png");
-        playBtn = new Texture("playBtn.png");
+        playBtn = new Texture("playbtn.png");
 
     }
 
@@ -20,7 +21,6 @@ public class MenuState extends State {
     public void handleInput() {
         if (Gdx.input.justTouched()){
             gsm.set(new PlayState(gsm));
-            dispose();
         }
     }
 
@@ -31,10 +31,10 @@ public class MenuState extends State {
 
     @Override
     public void render(SpriteBatch sb) {
-
+        sb.setProjectionMatrix(cam.combined);
         sb.begin();
-        sb.draw(background, 0, 0, FlappyBot.WIDTH, FlappyBot.HEIGHT);
-        sb.draw(playBtn, (FlappyBot.WIDTH/2) - (playBtn.getWidth()/2) , FlappyBot.HEIGHT/2);
+        sb.draw(background, 0, 0);
+        sb.draw(playBtn, cam.position.x - playBtn.getWidth()/2, cam.position.y);
         sb.end();
 
     }

@@ -49,11 +49,15 @@ public class Bot {
 
     public void jump(){
 
-        velocity.y = 250;
+        velocity.y = 230;
 
     }
 
     public Rectangle getBounds(){
         return bounds;
+    }
+
+    public void dispose(){
+        bot.dispose();
     }
 }

@@ -82,5 +82,11 @@ public class PlayState extends State {
     @Override
     public void dispose() {
 
+        bg.dispose();
+        bot.dispose();
+        for (Tube tube: tubes){
+            tube.dispose();
+        }
+
     }
 }
