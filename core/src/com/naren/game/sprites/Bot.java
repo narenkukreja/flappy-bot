@@ -16,7 +16,7 @@ public class Bot {
     public Bot(int x, int y) {
         position = new Vector3(x,y,0);
         velocity = new Vector3(0,0,0);
-        bot = new Texture("bird.png");
+        bot = new Texture("bot.png");
         bounds = new Rectangle(x,y,bot.getWidth(), bot.getHeight());
     }
 
