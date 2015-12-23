@@ -6,6 +6,8 @@ import com.badlogic.gdx.math.Vector3;
 public class Bot {
 
     private static final int GRAVITY = -15;
+    private static final int MOVEMENT = 100;
+
 
     private Vector3 position, velocity;
     private Texture bot;
@@ -23,6 +25,7 @@ public class Bot {
         }
         velocity.scl(dt);
         position.add(0, velocity.y, 0);
+        position.add(MOVEMENT*dt, velocity.y, 0);
         velocity.scl(1/dt);
 
         if (position.y < 0){

@@ -7,18 +7,29 @@ import com.naren.game.FlappyBot;
 import com.naren.game.sprites.Bot;
 import com.naren.game.sprites.Tube;
 
+import java.lang.reflect.Array;
+
 public class PlayState extends State {
+
+    private static final int TUBE_SPACING = 125;
+    private static final int TUBE_COUNT = 4;
 
     private Bot bot;
     private Texture bg;
-    private Tube tube;
+
+    private com.badlogic.gdx.utils.Array<Tube> tubes;
 
     protected PlayState(GameStateManager gsm) {
         super(gsm);
         bot = new Bot(50,300);
         cam.setToOrtho(false, FlappyBot.WIDTH/2, FlappyBot.HEIGHT/2);
         bg = new Texture("bg.png");
-        tube = new Tube(100);
+
+        tubes = new com.badlogic.gdx.utils.Array<Tube>();
+
+        for (int i = 0; i <= TUBE_COUNT; i++) {
+            tubes.add(new Tube(i * (TUBE_SPACING) + Tube.TUBE_WIDTH));
+        }
     }
 
     @Override
@@ -33,6 +44,20 @@ public class PlayState extends State {
     public void update(float dt) {
         handleInput();
         bot.update(dt);
+        cam.position.x = bot.getPosition().x + 80;
+
+        for (Tube tube : tubes) {
+
+            if (cam.position.x - (cam.viewportWidth/2) > tube.getPosTopTube().x + tube.getTopTube().getWidth()){
+
+                tube.resposition(tube.getPosTopTube().x + (Tube.TUBE_WIDTH + TUBE_SPACING) * TUBE_COUNT);
+
+            }
+        }
+
+        cam.update();
+
+
 
     }
 
@@ -42,9 +67,11 @@ public class PlayState extends State {
         sb.begin();
         sb.draw(bg, cam.position.x - (cam.viewportWidth / 2), 0);
         sb.draw(bot.getBot(), bot.getPosition().x, bot.getPosition().y);
-        sb.draw(tube.getTopTube(), tube.getPosTopTube().x, tube.getPosTopTube().y);
-        sb.draw(tube.getBottomTube(), tube.getPosBottomTube().x, tube.getPosBottomTube().y);
 
+        for(Tube tube : tubes) {
+            sb.draw(tube.getTopTube(), tube.getPosTopTube().x, tube.getPosTopTube().y);
+            sb.draw(tube.getBottomTube(), tube.getPosBottomTube().x, tube.getPosBottomTube().y);
+        }
         sb.end();
     }
 
