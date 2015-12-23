@@ -1,6 +1,7 @@
 package com.naren.game.sprites;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 
 public class Bot {
@@ -8,14 +9,15 @@ public class Bot {
     private static final int GRAVITY = -15;
     private static final int MOVEMENT = 100;
 
-
     private Vector3 position, velocity;
     private Texture bot;
+    private Rectangle bounds;
 
     public Bot(int x, int y) {
         position = new Vector3(x,y,0);
         velocity = new Vector3(0,0,0);
         bot = new Texture("bird.png");
+        bounds = new Rectangle(x,y,bot.getWidth(), bot.getHeight());
     }
 
     public void update(float dt){
@@ -33,6 +35,8 @@ public class Bot {
 
         }
 
+        bounds.setPosition(position.x, position.y);
+
     }
 
     public Vector3 getPosition() {
@@ -47,5 +51,9 @@ public class Bot {
 
         velocity.y = 250;
 
+    }
+
+    public Rectangle getBounds(){
+        return bounds;
     }
 }
